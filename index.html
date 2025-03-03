@@ -2,57 +2,46 @@
 <html lang="uk">
 <head>
     <meta charset="utf-8">
-    <title>День Святого Валентина</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Save Health</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
+    <link rel="icon" type="image/png" href="img/hospital.png">
 </head>
-<link rel="icon" type="image/png" href="img/rose.png">
-<body>
+<body style="background-image: url('img/v870-tang-35.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
     <div class="container">
         <header class="site-header">
-            <h1>&#10084; День Святого Валентина &#10084;</h1>
-            <p>Свято кохання, ніжності та незабутніх емоцій</p>
-            <img src="https://png.pngtree.com/png-vector/20220411/ourmid/pngtree-red-3d-heart-emoji-realistic-shadow-png-image_4539964.png" width="250" height="250" alt="Серце з трояндами">
-        </header>        
+            <h1>&#10084; Save Health &#10084;</h1>
+            <p>Збережи здоров'я, живи здорово!</p>
+            <img style="width: 200px; height: 200px;" alt="Здоров'я та фітнес" src="img/heartbeat.png">
+        </header>
 
         <section class="features">
-            <h2>Чому це особливий день? 💝</h2>
-            <p class="feature-heart">Кохання робить <br>світ яскравим! <br>💕</p>
-            <p class="feature-gift">Подарунки для найрідніших! <br>🎁</p>
-            <p class="feature-love">Романтичні моменти разом! <br>💑</p>
+            <h2>Чому важливо піклуватися про своє здоров'я? 🌱</h2>
+            <p class="feature-exercise">Регулярні тренування роблять тіло сильнішим! <br>🏋️‍♂️</p>
+            <p class="feature-nutrition">Збалансоване харчування — шлях до здоров'я! <br>🍎</p>
+            <p class="feature-rest">Відпочинок — ключ до відновлення! <br>😴</p>
         </section>
 
-        <section class="skills">
-            <h2>Що зробить цей день незабутнім? 💌</h2>
-            <ul class="skills-list">
-                <li class="skills-item">Організація романтичної вечері 🍽️</li>
-                <li class="skills-item standard">Приємні сюрпризи для коханих 🎈</li>
-                <li class="skills-item standard">Теплі слова та зізнання 💬</li>
-                <li class="skills-item vip">Незабутні побачення під зорями ✨</li>
-                <li class="skills-item vip">Створення чарівної атмосфери 💞</li>
+        <section class="tips">
+            <h2>Корисні поради для здорового способу життя 💪</h2>
+            <ul class="tips-list">
+                <li class="tips-item">Щоденні фізичні вправи 🏃‍♀️</li>
+                <li class="tips-item standard">Правильне харчування для енергії 🥗</li>
+                <li class="tips-item standard">Пити достатньо води 💧</li>
+                <li class="tips-item vip">Регулярний сон для відновлення 💤</li>
+                <li class="tips-item vip">Позитивне мислення та стрес-менеджмент 🧘‍♂️</li>
             </ul>
         </section>
-        <button id="loveButton">Натисни для романтики 💖</button>
-<p id="loveMessage"></p>
 
-<script>
-    const lovePhrases = [
-        "Кохання – це коли душа знаходить своє відображення в іншій людині ❤️",
-        "Ти – моє серце, яке б'ється найшвидше 💕",
-        "З тобою кожен день – це свято кохання 💖",
-        "Ти – мій всесвіт, моя зірка, моє сонце ☀️",
-        "Справжнє кохання – це коли твоє щастя важливіше за моє 💞"
-    ];
+        <button id="healthButton">Натисни для здорових порад 🧡</button>
+        <p id="healthMessage"></p>
 
-    document.getElementById("loveButton").addEventListener("click", function() {
-        const randomIndex = Math.floor(Math.random() * lovePhrases.length);
-        document.getElementById("loveMessage").textContent = lovePhrases[randomIndex];
-    });
-</script>
-
+        <button id="buyPillsButton">Купити пігулки 💊</button>
+        <button id="healthPillsButton">💊💊💊💊💊</button>
 
         <footer class="site-footer">
-            <p>© День Святого Валентина, 2025</p>
-            <p>Даруйте любов кожен день! ❤️</p>
+            <p>© Save Health, 2025</p>
+            <p>Піклуйтеся про своє здоров'я щодня! 💚</p>
         </footer>
     </div>
 </body>
