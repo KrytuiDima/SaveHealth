@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <title>День Святого Валентина</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<link rel="icon" type="image/png" href="img/rose.png">
+<body>
+    <div class="container">
+        <header class="site-header">
+            <h1>&#10084; День Святого Валентина &#10084;</h1>
+            <p>Свято кохання, ніжності та незабутніх емоцій</p>
+            <img src="https://png.pngtree.com/png-vector/20220411/ourmid/pngtree-red-3d-heart-emoji-realistic-shadow-png-image_4539964.png" width="250" height="250" alt="Серце з трояндами">
+        </header>        
+
+        <section class="features">
+            <h2>Чому це особливий день? 💝</h2>
+            <p class="feature-heart">Кохання робить <br>світ яскравим! <br>💕</p>
+            <p class="feature-gift">Подарунки для найрідніших! <br>🎁</p>
+            <p class="feature-love">Романтичні моменти разом! <br>💑</p>
+        </section>
+
+        <section class="skills">
+            <h2>Що зробить цей день незабутнім? 💌</h2>
+            <ul class="skills-list">
+                <li class="skills-item">Організація романтичної вечері 🍽️</li>
+                <li class="skills-item standard">Приємні сюрпризи для коханих 🎈</li>
+                <li class="skills-item standard">Теплі слова та зізнання 💬</li>
+                <li class="skills-item vip">Незабутні побачення під зорями ✨</li>
+                <li class="skills-item vip">Створення чарівної атмосфери 💞</li>
+            </ul>
+        </section>
+        <button id="loveButton">Натисни для романтики 💖</button>
+<p id="loveMessage"></p>
+
+<script>
+    const lovePhrases = [
+        "Кохання – це коли душа знаходить своє відображення в іншій людині ❤️",
+        "Ти – моє серце, яке б'ється найшвидше 💕",
+        "З тобою кожен день – це свято кохання 💖",
+        "Ти – мій всесвіт, моя зірка, моє сонце ☀️",
+        "Справжнє кохання – це коли твоє щастя важливіше за моє 💞"
+    ];
+
+    document.getElementById("loveButton").addEventListener("click", function() {
+        const randomIndex = Math.floor(Math.random() * lovePhrases.length);
+        document.getElementById("loveMessage").textContent = lovePhrases[randomIndex];
+    });
+</script>
+
+
+        <footer class="site-footer">
+            <p>© День Святого Валентина, 2025</p>
+            <p>Даруйте любов кожен день! ❤️</p>
+        </footer>
+    </div>
+</body>
+</html>
