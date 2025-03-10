@@ -52,6 +52,7 @@ document.getElementById("buyPillsButton").addEventListener("click", function() {
 updatePillsButton();
 
 let img = 3;
+
 document.getElementById("btn-left-arrow").addEventListener("click", () => {
     console.log('left');
     img--;
@@ -61,6 +62,8 @@ document.getElementById("btn-left-arrow").addEventListener("click", () => {
     }
     document.getElementById("main-image").setAttribute('src', `img/gallery/${img}.jpg`);
 });
+
+
 document.getElementById("btn-right-arrow").addEventListener("click", () => {
     console.log('right');
     img++;
