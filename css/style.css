@@ -184,4 +184,5 @@ h2 {
     align-items: center;
     gap: 10px;
     width: 100%;
+    justify-content: space-between;
 }

@@ -22,8 +22,6 @@ const healthPhrases = [
     "Залишайтеся на позитиві! 🌟",
     "Дякуйте за кожен день! 🙏"
 ];
-
-
 function updatePillsButton() {
     let pillsText = '';
     for (let i = 0; i < pillsCount; i++) {
@@ -34,7 +32,6 @@ function updatePillsButton() {
     }
     document.getElementById('healthPillsButton').textContent = pillsText;
 }
-
 
 document.getElementById("healthButton").addEventListener("click", function() {
     if (pillsCount > 0) {
@@ -47,12 +44,29 @@ document.getElementById("healthButton").addEventListener("click", function() {
     }
 });
 
-
 document.getElementById("buyPillsButton").addEventListener("click", function() {
     pillsCount = 5;  
     updatePillsButton();   
     document.getElementById("healthMessage").textContent = "Пігулки відновлені. Готові для використання!";
 });
-
-
 updatePillsButton();
+
+let img = 3;
+document.getElementById("btn-left-arrow").addEventListener("click", () => {
+    console.log('left');
+    img--;
+    console.log(img);
+    if (img < 1) {
+        img = 3;
+    }
+    document.getElementById("main-image").setAttribute('src', `img/gallery/${img}.jpg`);
+});
+document.getElementById("btn-right-arrow").addEventListener("click", () => {
+    console.log('right');
+    img++;
+    console.log(img);
+    if (img > 3) {
+        img = 1;
+    }
+    document.getElementById("main-image").setAttribute('src', `img/gallery/${img}.jpg`);
+});
