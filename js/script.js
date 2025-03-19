@@ -51,25 +51,59 @@ document.getElementById("buyPillsButton").addEventListener("click", function() {
 });
 updatePillsButton();
 
-let img = 3;
+const arrayOfGalleryImages = [
+    "1.jpg",
+    "2.jpg",
+    "3.jpg",
+];
 
-document.getElementById("btn-left-arrow").addEventListener("click", () => {
-    console.log('left');
-    img--;
-    console.log(img);
-    if (img < 1) {
-        img = 3;
-    }
-    document.getElementById("main-image").setAttribute('src', `img/gallery/${img}.jpg`);
+let galleryImage = 0;
+
+// Set the initial image in the gallery
+document.getElementById('main-image').setAttribute('src', `img/gallery/${arrayOfGalleryImages[galleryImage]}`);
+
+// Right arrow click event
+document.getElementById('btn-right-arrow').addEventListener('click', () => {
+    galleryImage++;
+    if (galleryImage === arrayOfGalleryImages.length) galleryImage = 0;
+    document.getElementById('main-image').setAttribute('src', `img/gallery/${arrayOfGalleryImages[galleryImage]}`);
 });
 
+// Left arrow click event
+document.getElementById('btn-left-arrow').addEventListener('click', () => {
+    galleryImage--;
+    if (galleryImage < 0) galleryImage = arrayOfGalleryImages.length - 1;
+    document.getElementById('main-image').setAttribute('src', `img/gallery/${arrayOfGalleryImages[galleryImage]}`);
+});
 
-document.getElementById("btn-right-arrow").addEventListener("click", () => {
-    console.log('right');
-    img++;
-    console.log(img);
-    if (img > 3) {
-        img = 1;
-    }
-    document.getElementById("main-image").setAttribute('src', `img/gallery/${img}.jpg`);
+document.getElementById('btn_health_wishes').addEventListener('click', () => {
+    let index = Math.floor(Math.random() * arrayOfHealthWishes.length);
+    document.getElementById('p-health-wishes').innerText = arrayOfHealthWishes[index];
+});
+
+const arrayOfVitaminObjects = [{
+    "id" : "1",
+    "title" : "Вітамін С",
+    "photo" : "",
+    "description" : "",
+    "rating" : "",
+    "useful" : "",
+},
+{
+    "id" : "2",
+    "title" : "Вітамін D3",
+    "photo" : "",
+    "description" : "",
+    "rating" : "",
+    "useful" : "",
+},
+];
+arrayOfVitaminObjects.forEach((item) => {
+    console.log(item)
+
+    let divVitamin = document.createElement('div')
+    divVitamin.classList.add('vitamin')
+    divVitamin.innerText = item.title
+
+    document.getElementById('p-vitamins').appendChild(divVitamin)
 });
