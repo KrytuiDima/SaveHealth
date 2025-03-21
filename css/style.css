@@ -1,3 +1,6 @@
+/* ===========================
+   General Styling
+=========================== */
 body {
     padding: 0;
     font-family: "Arial", sans-serif;
@@ -9,6 +12,9 @@ body {
     background-attachment: fixed;
 }
 
+/* ===========================
+   Header Styling
+=========================== */
 h1 {
     text-align: center;
     font-family: "Georgia", serif;
@@ -23,30 +29,23 @@ h2 {
     text-align: center;
 }
 
+/* ===========================
+   Site Header
+=========================== */
 .site-header {
     margin-bottom: 30px;
     text-align: center;
 }
 
-.skills-item {
-    margin-bottom: 15px;
-    padding-left: 20px;
-    border-left: 10px solid #66bb6a;
-    color: #2c6d2f;
-    font-size: 18px;
+.site-header img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
 }
 
-.standard {
-    border-color: #81c784;
-    color: #388e3c;
-}
-
-.vip {
-    border-color: #388e3c;
-    color: #1b5e20;
-    font-weight: bold;
-}
-
+/* ===========================
+   Container Styling
+=========================== */
 .container {
     width: 500px;
     margin: 0 auto;
@@ -56,12 +55,9 @@ h2 {
     box-shadow: 0 0 10px rgba(0, 128, 0, 0.5);
 }
 
-.site-header img {
-    display: block;
-    margin: 0 auto;
-    border-radius: 50%;
-}
-
+/* ===========================
+   Feature Section
+=========================== */
 .features {
     margin-bottom: 30px;
     text-align: center;
@@ -97,11 +93,36 @@ h2 {
     background-size: 50px;
 }
 
+/* ===========================
+   Skills Section
+=========================== */
 .skills-list {
     padding: 0;
     list-style: none;
 }
 
+.skills-item {
+    margin-bottom: 15px;
+    padding-left: 20px;
+    border-left: 10px solid #66bb6a;
+    color: #2c6d2f;
+    font-size: 18px;
+}
+
+.standard {
+    border-color: #81c784;
+    color: #388e3c;
+}
+
+.vip {
+    border-color: #388e3c;
+    color: #1b5e20;
+    font-weight: bold;
+}
+
+/* ===========================
+   Footer Styling
+=========================== */
 .site-footer {
     display: flex;
     justify-content: space-between;
@@ -110,7 +131,28 @@ h2 {
     padding-top: 15px;
 }
 
-#healthButton {
+/* ===========================
+   Button Styling
+=========================== */
+button, #btn-right-arrow, #btn-left-arrow {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    cursor: pointer;
+}
+
+button:hover, #btn-right-arrow:hover, #btn-left-arrow:hover {
+    background-color: #4caf50;
+    box-shadow: 0 6px 8px rgba(169, 169, 169, 0.7); /* Grey shadow on hover */
+    transform: scale(1.1);
+}
+
+button:active, #btn-right-arrow:active, #btn-left-arrow:active {
+    background-color: #388e3c; /* Green when pressed */
+    box-shadow: 0 6px 10px rgba(56, 142, 77, 0.7); /* Green shadow when pressed */
+    transform: scale(1);
+}
+
+#healthButton, #buyPillsButton, #healthPillsButton {
     display: block;
     margin: 20px auto;
     padding: 10px 20px;
@@ -119,38 +161,6 @@ h2 {
     color: white;
     border: none;
     border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-#healthButton:hover {
-    background-color: #2c6d2f;
-}
-
-#healthMessage {
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    color: #1b5e20;
-    margin-top: 10px;
-    height: 30px;
-}
-
-#buyPillsButton, #healthPillsButton {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #388e3c;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-#buyPillsButton:hover, #healthPillsButton:hover {
-    background-color: #2c6d2f;
 }
 
 #buyPillsButton {
@@ -166,6 +176,21 @@ h2 {
     cursor: not-allowed;
 }
 
+/* ===========================
+   Health Message
+=========================== */
+#healthMessage {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #1b5e20;
+    margin-top: 10px;
+    height: 30px;
+}
+
+/* ===========================
+   Pills Section
+=========================== */
 #pillsContainer {
     display: flex;
     justify-content: center;
@@ -177,7 +202,9 @@ h2 {
     margin: 0 5px;
 }
 
-/* Галерея */
+/* ===========================
+   Gallery Section
+=========================== */
 .gallery {
     display: flex;
     flex-direction: row;
@@ -188,19 +215,88 @@ h2 {
 }
 
 .main-image {
-    width: 250px; 
-    height: 390px;
+    width: 300px;
+    height: 440px;
+    transition: opacity 0.5s ease-in-out;
 }
-#p-vitamins{
+
+.main-image.fade {
+    opacity: 0;
+}
+
+/* ===========================
+   Vitamins Section
+=========================== */
+#p-vitamins {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    flex-wrap: nowrap;
+    justify-content: center;
     gap: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.vitamin{
-    border: 1px solid #678086;
-    box-shadow: #4caf50 10px 10px 20px;
-    padding: 10px;
-    width: 150px;
-    height: 200px;
+
+.vitamin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 200px;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.vitamin:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+.vitamin-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #388e3c;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.vitamin-description {
+    font-size: 14px;
+    color: #555555;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.vitamin-rating {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ff9800;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.vitamin-useful {
+    font-size: 14px;
+    color: #4caf50;
+    text-align: center;
+}
+
+/* ===========================
+   Arrow Button Styling
+=========================== */
+#btn-right-arrow, #btn-left-arrow {
+    width: 80px;
+    height: 80px;
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
