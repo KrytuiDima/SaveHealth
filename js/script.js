@@ -97,13 +97,15 @@ if (vitaminsContainer) {
         {
             id: "1",
             title: "Вітамін С",
+            photo: "img/vitamins/vitamin-c.png", // Add photo path
             description: "Допомагає імунній системі.",
             rating: "⭐⭐⭐⭐",
             useful: "Підтримує здоров'я шкіри.",
         },
         {
             id: "2",
-            title: "Вітамін D3",
+            title: "Вітамін D",
+            photo: "img/vitamins/vitamin-d.png", // Add photo path
             description: "Підтримує здоров'я кісток.",
             rating: "⭐⭐⭐⭐⭐",
             useful: "Допомагає засвоювати кальцій.",
@@ -115,6 +117,12 @@ if (vitaminsContainer) {
         // Create the main container for the vitamin
         let divVitamin = document.createElement('div');
         divVitamin.classList.add('vitamin');
+
+        // Add the photo
+        let imgVitamin = document.createElement('img');
+        imgVitamin.classList.add('vitamin-photo');
+        imgVitamin.src = item.photo;
+        imgVitamin.alt = item.title;
 
         // Add the title
         let titleVitamin = document.createElement('div');
@@ -137,6 +145,7 @@ if (vitaminsContainer) {
         usefulVitamin.innerText = `Корисно: ${item.useful}`;
 
         // Append all elements to the vitamin container
+        divVitamin.appendChild(imgVitamin);
         divVitamin.appendChild(titleVitamin);
         divVitamin.appendChild(descriptionVitamin);
         divVitamin.appendChild(ratingVitamin);
