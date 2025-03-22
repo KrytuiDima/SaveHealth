@@ -153,18 +153,19 @@ button:active, #btn-right-arrow:active, #btn-left-arrow:active {
 }
 
 #healthButton {
-    display: inline-block;
-    padding: 12px 25px;
-    font-size: 15px;
-    font-weight: bold;
-    color: white;
-    text-transform: uppercase;
+    display: block; /* Відображення кнопки */
+    padding: 12px 25px; /* Внутрішні відступи */
+    font-size: 15px; /* Розмір тексту */
+    font-weight: bold; /* Жирний текст */
+    color: white; /* Колір тексту */
+    text-transform: uppercase; /* Текст великими літерами */
     background-color: #e60000; /* Червоний фон */
-    border: none;
+    border: none; /* Без рамки */
     border-radius: 30px; /* Закруглені краї */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Легка тінь */
-    cursor: pointer;
+    cursor: pointer; /* Курсор у вигляді руки */
     transition: all 0.3s ease; /* Плавні переходи */
+    margin: 0 auto; /* Центрування кнопки */
 }
 
 #healthButton:hover {
@@ -176,11 +177,11 @@ button:active, #btn-right-arrow:active, #btn-left-arrow:active {
 #healthButton:active {
     background-color: #990000; /* Темніший червоний при натисканні */
     transform: scale(0.95); /* Легке зменшення при натисканні */
-    box-shadow: 0 6px 10px rgba(0, 0, 255, 0.5); /* Синя тінь при натисканні */
+    box-shadow: 0 6px 10px rgba(12, 163, 75, 0.5); /* Синя тінь при натисканні */
 }
 
 #buyPillsButton {
-    display: inline-block;
+    display: block; 
     padding: 12px 25px;
     font-size: 15px;
     font-weight: bold;
@@ -203,7 +204,7 @@ button:active, #btn-right-arrow:active, #btn-left-arrow:active {
 #buyPillsButton:active {
     background-color: #990000; /* Темніший червоний при натисканні */
     transform: scale(0.95); /* Легке зменшення при натисканні */
-    box-shadow: 0 6px 10px rgba(0, 0, 255, 0.5); /* Синя тінь при натисканні */
+    box-shadow: 0 6px 10px rgba(55, 177, 130, 0.5); /* Синя тінь при натисканні */
 }
 
 #healthMessage {
@@ -211,18 +212,19 @@ button:active, #btn-right-arrow:active, #btn-left-arrow:active {
     font-size: 18px;
     font-weight: bold;
     color: #1b5e20;
-    margin-top: 10px;
+    margin-top: 20px;
     height: 20px;
 }
 
 #pillsContainer {
-    display: flex;
-    flex-direction: column; /* Розташування кнопок вертикально */
-    align-items: center; /* Центрування кнопок по горизонталі */
-    justify-content: center; /* Центрування кнопок по вертикалі */
-    margin-top: 20px;
+    display: flex; /* Використання flexbox */
+    flex-direction: column; /* Розташування елементів вертикально */
+    align-items: center; /* Центрування по горизонталі */
+    justify-content: center; /* Центрування по вертикалі */
+    height: 100vh; /* Займає всю висоту вікна */
     gap: 15px; /* Відстань між кнопками */
-    font-size: 24px;
+    margin: 0 auto; /* Центрування контейнера */
+    text-align: center; /* Центрування тексту всередині */
 }
 
 .pill {
@@ -249,34 +251,42 @@ button:active, #btn-right-arrow:active, #btn-left-arrow:active {
 }
 
 #p-vitamins {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: grid; /* Використовуємо CSS Grid */
+    grid-template-columns: repeat(2, 1fr); /* Два стовпці однакової ширини */
+    grid-auto-rows: auto; /* Автоматична висота рядків */
+    gap: 20px; /* Відстань між картками */
+    justify-content: center; /* Центруємо сітку по горизонталі */
+    align-items: center; /* Центруємо елементи по вертикалі */
+    padding: 20px; /* Відступи всередині контейнера */
+    background-color: #f9f9f9; /* Світлий фон для кращої видимості */
+    border-radius: 10px; /* Закруглені краї контейнера */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легка тінь */
+    width: 100%; /* Займає всю ширину контейнера */
+    max-width: 100%; /* Не виходить за межі контейнера */
+    box-sizing: border-box; /* Враховує відступи та рамки */
 }
 
 .vitamin {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    width: 200px;
-    padding: 15px;
-    background-color: #ffffff;
     border: 1px solid #e0e0e0;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px; /* Відступи всередині картки */
+    display: flex;
+    flex-direction: column; /* Розташування елементів вертикально */
+    align-items: center; /* Центрування елементів по горизонталі */
+    text-align: center; /* Центрування тексту */
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
+.vitamin:nth-child(3) {
+    width: 200px; /* Менша ширина для вітаміну B+ */
+    grid-column: auto; /* Залишаємо його в стандартному стовпці */
+    justify-self: center; /* Центруємо елемент по горизонталі */
+}
+
 .vitamin:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05); /* Легке збільшення при наведенні */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Сильніша тінь при наведенні */
 }
 
 .vitamin-title {
@@ -284,28 +294,14 @@ button:active, #btn-right-arrow:active, #btn-left-arrow:active {
     font-weight: bold;
     color: #388e3c;
     margin-bottom: 10px;
-    text-align: center;
 }
 
-.vitamin-description {
+.vitamin-description,
+.vitamin-rating,
+.vitamin-useful {
     font-size: 14px;
     color: #555555;
     margin-bottom: 10px;
-    text-align: center;
-}
-
-.vitamin-rating {
-    font-size: 14px;
-    font-weight: bold;
-    color: #ff9800;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.vitamin-useful {
-    font-size: 14px;
-    color: #4caf50;
-    text-align: center;
 }
 
 .vitamin-photo {
@@ -324,6 +320,21 @@ button:active, #btn-right-arrow:active, #btn-left-arrow:active {
     border-color: #4caf50;
 }
 
+.vitamin-photo,
+.vitamin-description,
+.vitamin-rating,
+.vitamin-useful {
+    opacity: 0; /* Початково приховуємо вміст */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.vitamin.open .vitamin-photo,
+.vitamin.open .vitamin-description,
+.vitamin.open .vitamin-rating,
+.vitamin.open .vitamin-useful {
+    opacity: 1; /* Робимо вміст видимим після відкриття */
+}
+
 #btn-right-arrow, #btn-left-arrow {
     width: 80px;
     height: 80px;
@@ -334,3 +345,22 @@ button:active, #btn-right-arrow:active, #btn-left-arrow:active {
     align-items: center;
     justify-content: center;
 }
+
+.buy-vitamin-button {
+    margin-top: auto; /* Відсуваємо кнопку вниз */
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #4caf50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buy-vitamin-button:hover {
+    background-color: #388e3c;
+}
+
+
