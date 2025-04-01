@@ -219,3 +219,146 @@ if (vitaminsContainer) {
     renderVitamins();
     updatePillsButton();
 }
+
+function startSnakeGame() {
+    const vitaminsContainer = document.getElementById('p-vitamins');
+    if (!vitaminsContainer) return;
+
+    // Очищуємо контейнер і додаємо елементи гри
+    vitaminsContainer.innerHTML = `
+        <div class="snake-game-container">
+            <canvas id="snakeCanvas"></canvas>
+            <button id="restartSnakeGame">Restart Game</button>
+            <p id="snakeInstructions">Use W, A, S, D to move the snake. Eat the pills to grow!</p>
+            <div id="snakeScore">Score: 0</div>
+        </div>
+    `;
+
+    const canvas = document.getElementById('snakeCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 400;
+    canvas.height = 400;
+
+    // Змінні гри
+    const boxSize = 20;
+    let snake = [{ x: 200, y: 200 }];
+    let food = { x: Math.floor(Math.random() * (canvas.width / boxSize)) * boxSize, y: Math.floor(Math.random() * (canvas.height / boxSize)) * boxSize };
+    let direction = 'RIGHT'; // Початковий напрямок
+    let nextDirection = 'RIGHT';
+    let score = 0;
+    let gameStarted = false;
+
+    // Малюємо границі гри
+    function drawBorder() {
+        ctx.strokeStyle = 'red';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
+    }
+
+    // Малюємо змійку
+    function drawSnake() {
+        ctx.fillStyle = 'green';
+        snake.forEach(segment => {
+            ctx.fillRect(segment.x, segment.y, boxSize, boxSize);
+        });
+    }
+
+    // Малюємо їжу (пігулку)
+    function drawFood() {
+        ctx.font = '20px Arial';
+        ctx.fillText('💊', food.x + 2, food.y + 18);
+    }
+
+    // Рух змійки
+    function moveSnake() {
+        const head = { ...snake[0] };
+
+        // Змінюємо напрямок
+        if (nextDirection === 'UP' && direction !== 'DOWN') direction = 'UP';
+        if (nextDirection === 'DOWN' && direction !== 'UP') direction = 'DOWN';
+        if (nextDirection === 'LEFT' && direction !== 'RIGHT') direction = 'LEFT';
+        if (nextDirection === 'RIGHT' && direction !== 'LEFT') direction = 'RIGHT';
+
+        // Оновлюємо позицію голови
+        if (direction === 'UP') head.y -= boxSize;
+        if (direction === 'DOWN') head.y += boxSize;
+        if (direction === 'LEFT') head.x -= boxSize;
+        if (direction === 'RIGHT') head.x += boxSize;
+
+        // Перевірка на зіткнення зі стінами або собою
+        if (
+            head.x < 0 ||
+            head.y < 0 ||
+            head.x >= canvas.width ||
+            head.y >= canvas.height ||
+            snake.some(segment => segment.x === head.x && segment.y === head.y)
+        ) {
+            alert(`Game Over! Your score: ${score}`);
+            restartGame();
+            return;
+        }
+
+        // Перевірка, чи з'їла змійка їжу
+        if (head.x === food.x && head.y === food.y) {
+            score++;
+            document.getElementById('snakeScore').textContent = `Score: ${score}`;
+            food = { x: Math.floor(Math.random() * (canvas.width / boxSize)) * boxSize, y: Math.floor(Math.random() * (canvas.height / boxSize)) * boxSize };
+        } else {
+            snake.pop(); // Видаляємо хвіст, якщо їжа не з'їдена
+        }
+
+        snake.unshift(head); // Додаємо нову голову
+    }
+
+    // Перезапуск гри
+    function restartGame() {
+        snake = [{ x: 200, y: 200 }];
+        direction = 'RIGHT';
+        nextDirection = 'RIGHT';
+        score = 0;
+        gameStarted = false;
+        document.getElementById('snakeScore').textContent = `Score: ${score}`;
+        food = { x: Math.floor(Math.random() * (canvas.width / boxSize)) * boxSize, y: Math.floor(Math.random() * (canvas.height / boxSize)) * boxSize };
+    }
+
+    // Основний цикл гри
+    function gameLoop() {
+        if (!gameStarted) return; // Не запускаємо гру, поки вона не почалася
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawBorder();
+        drawSnake();
+        drawFood();
+        moveSnake();
+    }
+
+    // Слухаємо натискання клавіш (W, A, S, D)
+    document.addEventListener('keydown', (event) => {
+        if (!gameStarted) gameStarted = true; // Починаємо гру після першого натискання
+        if (event.key === 'w') nextDirection = 'UP';
+        if (event.key === 's') nextDirection = 'DOWN';
+        if (event.key === 'a') nextDirection = 'LEFT';
+        if (event.key === 'd') nextDirection = 'RIGHT';
+    });
+
+    // Кнопка перезапуску гри
+    document.getElementById('restartSnakeGame').addEventListener('click', restartGame);
+
+    // Запускаємо основний цикл гри
+    setInterval(gameLoop, 100); // Оновлюємо гру кожні 100 мс
+}
+
+// Додаємо кнопку "Play Snake" у блок p-vitamins
+function addSnakeGameButton() {
+    const vitaminsContainer = document.getElementById('p-vitamins');
+    if (!vitaminsContainer) return;
+
+    const playSnakeButton = document.createElement('button');
+    playSnakeButton.innerText = 'Play Snake';
+    playSnakeButton.classList.add('play-snake-button');
+    playSnakeButton.addEventListener('click', startSnakeGame);
+
+    vitaminsContainer.appendChild(playSnakeButton);
+}
+
+// Ініціалізуємо кнопку при завантаженні сторінки
+addSnakeGameButton();
