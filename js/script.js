@@ -101,6 +101,7 @@ if (vitaminsContainer) {
             title: "Вітамін С",
             photo: "img/vitamins/vitamin-c.png",
             description: "Допомагає імунній системі.",
+            scheme: "img/schemes/scheme-c.png",
             rating: "⭐⭐⭐⭐",
             useful: "Підтримує здоров'я шкіри.",
             price: 2, // Ціна в пігулках
@@ -111,6 +112,7 @@ if (vitaminsContainer) {
             title: "Вітамін D",
             photo: "img/vitamins/vitamin-d.png",
             description: "Підтримує здоров'я кісток.",
+            scheme: "img/schemes/scheme-d.png",
             rating: "⭐⭐⭐⭐⭐",
             useful: "Допомагає засвоювати кальцій.",
             price: 3, // Ціна в пігулках
@@ -118,9 +120,10 @@ if (vitaminsContainer) {
         },
         {
             id: "3",
-            title: "Вітамін B+",
-            photo: "img/vitamins/vitamin-b+.png", // Додайте відповідний шлях до зображення
+            title: "Вітамін B12",
+            photo: "img/vitamins/vitamin-b+.png",
             description: "Покращує роботу нервової системи.",
+            scheme: "img/schemes/scheme-b12.png",
             rating: "⭐⭐⭐⭐",
             useful: "Допомагає зменшити втому.",
             price: 4, // Ціна в пігулках
@@ -129,8 +132,9 @@ if (vitaminsContainer) {
         {
             id: "4",
             title: "Магній",
-            photo: "img/vitamins/magnesium.png", // Додайте відповідний шлях до зображення
+            photo: "img/vitamins/magnesium.png",
             description: "Допомагає зменшити м'язові спазми.",
+            scheme: "img/schemes/scheme-magnum.png",
             rating: "⭐⭐⭐⭐⭐",
             useful: "Покращує сон та знижує стрес.",
             price: 5, // Ціна в пігулках
@@ -171,6 +175,18 @@ if (vitaminsContainer) {
             descriptionVitamin.classList.add('vitamin-description');
             descriptionVitamin.innerText = item.description;
 
+            let schemeVitamin = document.createElement('img');
+            schemeVitamin.classList.add('scheme-photo');
+            schemeVitamin.src = item.scheme;
+            schemeVitamin.alt = `${item.title} схема`;
+
+            // Додаємо стилі для схеми
+            schemeVitamin.style.display = 'block';
+            schemeVitamin.style.margin = '10px auto';
+            schemeVitamin.style.maxWidth = '80%';
+            schemeVitamin.style.border = '1px solid #ccc';
+            schemeVitamin.style.borderRadius = '8px';
+
             let ratingVitamin = document.createElement('div');
             ratingVitamin.classList.add('vitamin-rating');
             ratingVitamin.innerText = `Рейтинг: ${item.rating}`;
@@ -181,6 +197,7 @@ if (vitaminsContainer) {
 
             divVitamin.appendChild(imgVitamin);
             divVitamin.appendChild(descriptionVitamin);
+            divVitamin.appendChild(schemeVitamin);
             divVitamin.appendChild(ratingVitamin);
             divVitamin.appendChild(usefulVitamin);
         } else {

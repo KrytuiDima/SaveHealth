@@ -35,7 +35,7 @@ h2 {
 }
 
 .container {
-    width: 500px;
+    width: 800px;
     margin: 0 auto;
     background: rgba(255, 255, 255, 0.9);
     padding: 20px;
@@ -253,24 +253,27 @@ button:active, #btn-right-arrow:active, #btn-left-arrow:active {
 #p-vitamins {
     display: grid; /* Використовуємо CSS Grid */
     grid-template-columns: repeat(2, 1fr); /* Два стовпці однакової ширини */
-    grid-auto-rows: auto; /* Автоматична висота рядків */
-    gap: 20px; /* Відстань між картками */
+    height: auto; /* Автоматична висота контейнера */
+    gap: 20px; /* Зменшена відстань між картками */
     justify-content: center; /* Центруємо сітку по горизонталі */
-    align-items: center; /* Центруємо елементи по вертикалі */
-    padding: 20px; /* Відступи всередині контейнера */
+    align-items: start; /* Вирівнюємо елементи по верхньому краю */
+    padding: 30px; /* Зменшені відступи всередині контейнера */
     background-color: #f9f9f9; /* Світлий фон для кращої видимості */
-    border-radius: 10px; /* Закруглені краї контейнера */
+    border-radius: 15px; /* Закруглені краї контейнера */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легка тінь */
     width: 100%; /* Займає всю ширину контейнера */
-    max-width: 100%; /* Не виходить за межі контейнера */
+    max-width: 800px; /* Зменшена ширина контейнера */
     box-sizing: border-box; /* Враховує відступи та рамки */
+    margin: 0 auto; /* Центрування контейнера */
 }
 
 .vitamin {
     border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 15px; /* Відступи всередині картки */
+    width: auto; /* Зменшена ширина картки */
+    height: 500px; /* Зменшена висота картки */
+    border-radius: 12px; /* Закруглені краї */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легка тінь */
+    padding: 15px; /* Зменшені відступи всередині картки */
     display: flex;
     flex-direction: column; /* Розташування елементів вертикально */
     align-items: center; /* Центрування елементів по горизонталі */
@@ -290,33 +293,33 @@ button:active, #btn-right-arrow:active, #btn-left-arrow:active {
 }
 
 .vitamin-title {
-    font-size: 18px;
+    font-size: 18px; /* Зменшений розмір тексту заголовка */
     font-weight: bold;
     color: #388e3c;
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* Зменшений відступ між заголовком і текстом */
 }
 
 .vitamin-description,
 .vitamin-rating,
 .vitamin-useful {
-    font-size: 14px;
+    font-size: 14px; /* Зменшений розмір тексту */
     color: #555555;
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Зменшений відступ між елементами */
 }
 
 .vitamin-photo {
-    width: 100px;
+    width: 100px; /* Зменшений розмір зображення */
     height: 100px;
     object-fit: cover;
     border-radius: 50%;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border: 2px solid #e0e0e0;
+    margin-bottom: 10px; /* Зменшений відступ між зображенням і текстом */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Легка тінь */
+    border: 1px solid #e0e0e0;
     transition: transform 0.3s ease;
 }
 
 .vitamin-photo:hover {
-    transform: scale(1.1);
+    transform: scale(1.1); /* Збільшення зображення при наведенні */
     border-color: #4caf50;
 }
 
@@ -335,6 +338,15 @@ button:active, #btn-right-arrow:active, #btn-left-arrow:active {
     opacity: 1; /* Робимо вміст видимим після відкриття */
 }
 
+.scheme-photo {
+    width: 100%; /* Схема займає всю ширину картки */
+    max-width: 150px; /* Зменшена максимальна ширина схеми */
+    margin: 10px auto; /* Зменшені відступи та центрування */
+    border: 1px solid #ccc; /* Рамка */
+    border-radius: 8px; /* Закруглені краї */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Легка тінь */
+}
+
 #btn-right-arrow, #btn-left-arrow {
     width: 80px;
     height: 80px;
@@ -347,7 +359,7 @@ button:active, #btn-right-arrow:active, #btn-left-arrow:active {
 }
 
 .buy-vitamin-button {
-    margin-top: auto; /* Відсуваємо кнопку вниз */
+    margin-top: 100px; /* Відсуваємо кнопку вниз */
     padding: 8px 15px;
     font-size: 14px;
     font-weight: bold;
