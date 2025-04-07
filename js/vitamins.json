@@ -1,0 +1,46 @@
+[
+    {
+        "id": "1",
+        "title": "Вітамін С",
+        "photo": "vitamin-c.png",
+        "description": "Допомагає імунній системі.",
+        "scheme": "scheme-c.png",
+        "rating": "2",
+        "useful": "Підтримує здоров'я шкіри.",
+        "price": 2,
+        "purchased": false
+    },
+    {
+        "id": "2",
+        "title": "Вітамін D",
+        "photo": "vitamin-d.png",
+        "description": "Підтримує здоров'я кісток.",
+        "scheme": "scheme-d.png",
+        "rating": "3",
+        "useful": "Допомагає засвоювати кальцій.",
+        "price": 3,
+        "purchased": false
+    },
+    {
+        "id": "3",
+        "title": "Вітамін B12",
+        "photo": "vitamin-b+.png",
+        "description": "Покращує роботу нервової системи.",
+        "scheme": "scheme-b12.png",
+        "rating": "4",
+        "useful": "Допомагає зменшити втому.",
+        "price": 4,
+        "purchased": false
+    },
+    {
+        "id": "4",
+        "title": "Магній",
+        "photo": "magnesium.png",
+        "description": "Допомагає зменшити м'язові спазми.",
+        "scheme": "scheme-magnum.png",
+        "rating": "5",
+        "useful": "Покращує сон та знижує стрес.",
+        "price": 5,
+        "purchased": false
+    }
+]

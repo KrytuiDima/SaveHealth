@@ -269,8 +269,8 @@ button:active, #btn-right-arrow:active, #btn-left-arrow:active {
 
 .vitamin {
     border: 1px solid #e0e0e0;
-    width: auto; /* Зменшена ширина картки */
-    height: 500px; /* Зменшена висота картки */
+    width: 350px; /* Зменшена ширина картки */
+    height: 600px; /* Зменшена висота картки */
     border-radius: 12px; /* Закруглені краї */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легка тінь */
     padding: 15px; /* Зменшені відступи всередині картки */
@@ -282,7 +282,7 @@ button:active, #btn-right-arrow:active, #btn-left-arrow:active {
 }
 
 .vitamin:nth-child(3) {
-    width: 200px; /* Менша ширина для вітаміну B+ */
+    width: 350px; /* Менша ширина для вітаміну B+ */
     grid-column: auto; /* Залишаємо його в стандартному стовпці */
     justify-self: center; /* Центруємо елемент по горизонталі */
 }
@@ -338,13 +338,16 @@ button:active, #btn-right-arrow:active, #btn-left-arrow:active {
     opacity: 1; /* Робимо вміст видимим після відкриття */
 }
 
+/* Збільшення схеми при натисканні */
 .scheme-photo {
-    width: 100%; /* Схема займає всю ширину картки */
-    max-width: 150px; /* Зменшена максимальна ширина схеми */
-    margin: 10px auto; /* Зменшені відступи та центрування */
-    border: 1px solid #ccc; /* Рамка */
-    border-radius: 8px; /* Закруглені краї */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Легка тінь */
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #btn-right-arrow, #btn-left-arrow {
@@ -459,4 +462,3 @@ button:active, #btn-right-arrow:active, #btn-left-arrow:active {
 .play-snake-button:active {
     transform: scale(1);
 }
-

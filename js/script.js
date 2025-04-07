@@ -90,153 +90,113 @@ document.getElementById('btn-left-arrow').addEventListener('click', () => {
     }, 500); // Match the transition duration
 });
 
-// Check if the vitamins container exists before adding elements
-const vitaminsContainer = document.getElementById('p-vitamins');
+let arrayOfVitaminObjects = [];
 
-if (vitaminsContainer) {
-    // Масив вітамінів
-    const arrayOfVitaminObjects = [
-        {
-            id: "1",
-            title: "Вітамін С",
-            photo: "img/vitamins/vitamin-c.png",
-            description: "Допомагає імунній системі.",
-            scheme: "img/schemes/scheme-c.png",
-            rating: "⭐⭐⭐⭐",
-            useful: "Підтримує здоров'я шкіри.",
-            price: 2, // Ціна в пігулках
-            purchased: false, // Чи куплено
-        },
-        {
-            id: "2",
-            title: "Вітамін D",
-            photo: "img/vitamins/vitamin-d.png",
-            description: "Підтримує здоров'я кісток.",
-            scheme: "img/schemes/scheme-d.png",
-            rating: "⭐⭐⭐⭐⭐",
-            useful: "Допомагає засвоювати кальцій.",
-            price: 3, // Ціна в пігулках
-            purchased: false, // Чи куплено
-        },
-        {
-            id: "3",
-            title: "Вітамін B12",
-            photo: "img/vitamins/vitamin-b+.png",
-            description: "Покращує роботу нервової системи.",
-            scheme: "img/schemes/scheme-b12.png",
-            rating: "⭐⭐⭐⭐",
-            useful: "Допомагає зменшити втому.",
-            price: 4, // Ціна в пігулках
-            purchased: false, // Чи куплено
-        },
-        {
-            id: "4",
-            title: "Магній",
-            photo: "img/vitamins/magnesium.png",
-            description: "Допомагає зменшити м'язові спазми.",
-            scheme: "img/schemes/scheme-magnum.png",
-            rating: "⭐⭐⭐⭐⭐",
-            useful: "Покращує сон та знижує стрес.",
-            price: 5, // Ціна в пігулках
-            purchased: false, // Чи куплено
-        },
-    ];
+// Завантаження даних з vitamins.json
+fetch('js/vitamins.json')
+  .then(response => response.json())
+  .then(data => {
+    arrayOfVitaminObjects = data.map(item => ({
+      ...item,
+      photo: `img/vitamins/${item.photo}`,
+      scheme: `img/schemes/${item.scheme}`,
+      rating: '⭐'.repeat(item.rating),
+      purchased: false, // Додаємо властивість куплено
+    }));
 
-    // Функція для рендерингу однієї картки вітаміну
-    function renderVitamin(item) {
-        // Знаходимо або створюємо контейнер для вітаміну
-        let divVitamin = document.querySelector(`.vitamin[data-id="${item.id}"]`);
-        if (!divVitamin) {
-            divVitamin = document.createElement('div');
-            divVitamin.classList.add('vitamin');
-            divVitamin.setAttribute('data-id', item.id);
-            vitaminsContainer.appendChild(divVitamin); // Додаємо до загального контейнера
-        }
+    renderVitamins(); // Рендеримо після завантаження
+    addSnakeGameButton(); // Додаємо кнопку гри тільки після завантаження вітамінів
+  })
+  .catch(error => console.error('Error fetching vitamins:', error));
 
-        // Очищуємо вміст картки
-        divVitamin.innerHTML = '';
+// Функція для рендерингу однієї картки вітаміну
+function renderVitamin(item) {
+  const vitaminsContainer = document.getElementById('p-vitamins');
+  let divVitamin = document.querySelector(`.vitamin[data-id="${item.id}"]`);
+  if (!divVitamin) {
+    divVitamin = document.createElement('div');
+    divVitamin.classList.add('vitamin');
+    divVitamin.setAttribute('data-id', item.id);
+    vitaminsContainer.appendChild(divVitamin);
+  }
 
-        // Додаємо назву
-        let titleVitamin = document.createElement('div');
-        titleVitamin.classList.add('vitamin-title');
-        titleVitamin.innerText = item.title;
-        divVitamin.appendChild(titleVitamin);
+  divVitamin.innerHTML = '';
 
-        // Якщо вітамін куплено, показуємо всю інформацію
-        if (item.purchased) {
-            divVitamin.classList.add('open'); // Додаємо клас для анімації
+  let titleVitamin = document.createElement('div');
+  titleVitamin.classList.add('vitamin-title');
+  titleVitamin.innerText = item.title;
+  divVitamin.appendChild(titleVitamin);
 
-            let imgVitamin = document.createElement('img');
-            imgVitamin.classList.add('vitamin-photo');
-            imgVitamin.src = item.photo;
-            imgVitamin.alt = item.title;
+  if (item.purchased) {
+    divVitamin.classList.add('open');
 
-            let descriptionVitamin = document.createElement('div');
-            descriptionVitamin.classList.add('vitamin-description');
-            descriptionVitamin.innerText = item.description;
+    let imgVitamin = document.createElement('img');
+    imgVitamin.classList.add('vitamin-photo');
+    imgVitamin.src = item.photo;
+    imgVitamin.alt = item.title;
 
-            let schemeVitamin = document.createElement('img');
-            schemeVitamin.classList.add('scheme-photo');
-            schemeVitamin.src = item.scheme;
-            schemeVitamin.alt = `${item.title} схема`;
+    let descriptionVitamin = document.createElement('div');
+    descriptionVitamin.classList.add('vitamin-description');
+    descriptionVitamin.innerText = item.description;
 
-            // Додаємо стилі для схеми
-            schemeVitamin.style.display = 'block';
-            schemeVitamin.style.margin = '10px auto';
-            schemeVitamin.style.maxWidth = '80%';
-            schemeVitamin.style.border = '1px solid #ccc';
-            schemeVitamin.style.borderRadius = '8px';
+    let schemeVitamin = document.createElement('img');
+    schemeVitamin.classList.add('scheme-photo');
+    schemeVitamin.src = item.scheme;
+    schemeVitamin.alt = `${item.title} схема`;
 
-            let ratingVitamin = document.createElement('div');
-            ratingVitamin.classList.add('vitamin-rating');
-            ratingVitamin.innerText = `Рейтинг: ${item.rating}`;
+    schemeVitamin.style.display = 'block';
+    schemeVitamin.style.margin = '10px auto';
+    schemeVitamin.style.maxWidth = '80%';
+    schemeVitamin.style.border = '1px solid #ccc';
+    schemeVitamin.style.borderRadius = '8px';
 
-            let usefulVitamin = document.createElement('div');
-            usefulVitamin.classList.add('vitamin-useful');
-            usefulVitamin.innerText = `Корисно: ${item.useful}`;
+    let ratingVitamin = document.createElement('div');
+    ratingVitamin.classList.add('vitamin-rating');
+    ratingVitamin.innerText = `Рейтинг: ${item.rating}`;
 
-            divVitamin.appendChild(imgVitamin);
-            divVitamin.appendChild(descriptionVitamin);
-            divVitamin.appendChild(schemeVitamin);
-            divVitamin.appendChild(ratingVitamin);
-            divVitamin.appendChild(usefulVitamin);
-        } else {
-            // Якщо не куплено, додаємо кнопку покупки
-            let buyButton = document.createElement('button');
-            buyButton.classList.add('buy-vitamin-button');
-            buyButton.innerText = `Купити за ${item.price} 💊`;
-            buyButton.addEventListener('click', () => buyVitamin(item.id)); // Передаємо ID вітаміну
-            divVitamin.appendChild(buyButton);
-        }
-    }
+    let usefulVitamin = document.createElement('div');
+    usefulVitamin.classList.add('vitamin-useful');
+    usefulVitamin.innerText = `Корисно: ${item.useful}`;
 
-    // Функція для рендерингу всіх вітамінів
-    function renderVitamins() {
-        vitaminsContainer.innerHTML = ''; // Очищуємо загальний контейнер
-        arrayOfVitaminObjects.forEach((item) => {
-            renderVitamin(item); // Рендеримо кожен вітамін окремо
-        });
-    }
+    divVitamin.appendChild(imgVitamin);
+    divVitamin.appendChild(descriptionVitamin);
+    divVitamin.appendChild(schemeVitamin);
+    divVitamin.appendChild(ratingVitamin);
+    divVitamin.appendChild(usefulVitamin);
+  } else {
+    let buyButton = document.createElement('button');
+    buyButton.classList.add('buy-vitamin-button');
+    buyButton.innerText = `Купити за ${item.price} 💊`;
+    buyButton.addEventListener('click', () => buyVitamin(item.id));
+    divVitamin.appendChild(buyButton);
+  }
+}
 
-    // Функція покупки вітаміну
-    function buyVitamin(vitaminId) {
-        const vitamin = arrayOfVitaminObjects.find((item) => item.id === vitaminId); // Знаходимо потрібний вітамін
-        if (vitamin && pillsCount >= vitamin.price) {
-            pillsCount -= vitamin.price; // Знімаємо пігулки
-            vitamin.purchased = true; // Позначаємо як куплений
-            updatePillsButton(); // Оновлюємо кнопку пігулок
-            renderVitamin(vitamin); // Оновлюємо тільки куплений вітамін
-            document.getElementById('healthMessage').textContent = `Ви купили ${vitamin.title}!`;
-        } else {
-            document.getElementById('healthMessage').textContent = "Недостатньо пігулок для покупки!";
-        }
-    }
+// Рендер всіх вітамінів
+function renderVitamins() {
+  const vitaminsContainer = document.getElementById('p-vitamins');
+  vitaminsContainer.innerHTML = '';
+  arrayOfVitaminObjects.forEach(renderVitamin);
+}
 
+// Купівля
+function buyVitamin(vitaminId) {
+  const vitamin = arrayOfVitaminObjects.find(item => item.id === vitaminId);
+  if (vitamin && pillsCount >= vitamin.price) {
+    pillsCount -= vitamin.price;
+    vitamin.purchased = true;
+    updatePillsButton();
+    renderVitamin(vitamin);
+    document.getElementById('healthMessage').textContent = `Ви купили ${vitamin.title}!`;
+  } else {
+    document.getElementById('healthMessage').textContent = "Недостатньо пігулок для покупки!";
+  }
+}
     // Ініціалізація
     renderVitamins();
     updatePillsButton();
-}
 
+// Функція для запуску гри "Змійка"
 function startSnakeGame() {
     const vitaminsContainer = document.getElementById('p-vitamins');
     if (!vitaminsContainer) return;
