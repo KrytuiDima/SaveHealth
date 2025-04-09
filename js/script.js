@@ -32,7 +32,11 @@ function updatePillsButton() {
     for (let i = pillsCount; i < 5; i++) {
         pillsText += '❌';
     }
-    document.getElementById('healthPillsButton').textContent = pillsText;
+    const pillsButton = document.getElementById('healthPillsButton');
+    pillsButton.textContent = pillsText;
+
+    // Dynamically adjust the width of the pills button
+    pillsButton.classList.add('dynamic');
 }
 
 document.getElementById("healthButton").addEventListener("click", function() {
@@ -143,12 +147,8 @@ function renderVitamin(item) {
     schemeVitamin.classList.add('scheme-photo');
     schemeVitamin.src = item.scheme;
     schemeVitamin.alt = `${item.title} схема`;
-
-    schemeVitamin.style.display = 'block';
-    schemeVitamin.style.margin = '10px auto';
-    schemeVitamin.style.maxWidth = '80%';
-    schemeVitamin.style.border = '1px solid #ccc';
-    schemeVitamin.style.borderRadius = '8px';
+    schemeVitamin.style.cursor = 'pointer';
+    schemeVitamin.addEventListener('click', () => openVitaminSchemeModal(item.scheme));
 
     let ratingVitamin = document.createElement('div');
     ratingVitamin.classList.add('vitamin-rating');
@@ -172,6 +172,26 @@ function renderVitamin(item) {
   }
 }
 
+// Function to open the vitamin scheme modal
+function openVitaminSchemeModal(schemeSrc) {
+    const modal = document.getElementById('vitaminSchemeModal');
+    const modalImage = document.getElementById('vitaminSchemeImage');
+    modalImage.src = schemeSrc;
+    modal.style.display = 'block';
+}
+
+// Close the vitamin scheme modal
+document.getElementById('closeVitaminModal').addEventListener('click', function () {
+    document.getElementById('vitaminSchemeModal').style.display = 'none';
+});
+
+window.addEventListener('click', function (event) {
+    const modal = document.getElementById('vitaminSchemeModal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+
 // Рендер всіх вітамінів
 function renderVitamins() {
   const vitaminsContainer = document.getElementById('p-vitamins');
@@ -187,6 +207,13 @@ function buyVitamin(vitaminId) {
     vitamin.purchased = true;
     updatePillsButton();
     renderVitamin(vitamin);
+
+    // Add animation class for opening effect
+    const vitaminElement = document.querySelector(`.vitamin[data-id="${vitaminId}"]`);
+    if (vitaminElement) {
+        vitaminElement.classList.add('open');
+    }
+
     document.getElementById('healthMessage').textContent = `Ви купили ${vitamin.title}!`;
   } else {
     document.getElementById('healthMessage').textContent = "Недостатньо пігулок для покупки!";
@@ -196,43 +223,51 @@ function buyVitamin(vitaminId) {
     renderVitamins();
     updatePillsButton();
 
-// Функція для запуску гри "Змійка"
+// Function to start the Snake game
 function startSnakeGame() {
     const vitaminsContainer = document.getElementById('p-vitamins');
     if (!vitaminsContainer) return;
 
-    // Очищуємо контейнер і додаємо елементи гри
+    // Replace the vitamins section with the Snake game
     vitaminsContainer.innerHTML = `
         <div class="snake-game-container">
             <canvas id="snakeCanvas"></canvas>
             <button id="restartSnakeGame">Restart Game</button>
             <p id="snakeInstructions">Use W, A, S, D to move the snake. Eat the pills to grow!</p>
             <div id="snakeScore">Score: 0</div>
+            <div id="snakePillsCollected">Pills: 0</div>
         </div>
     `;
 
     const canvas = document.getElementById('snakeCanvas');
     const ctx = canvas.getContext('2d');
-    canvas.width = 400;
-    canvas.height = 400;
 
-    // Змінні гри
+    // Dynamically set canvas dimensions
+    const containerWidth = vitaminsContainer.offsetWidth;
+    canvas.width = Math.floor(containerWidth / 20) * 20; // Ensure width is a multiple of boxSize
+    canvas.height = 400; // Fixed height for gameplay
+
+    // Game variables
     const boxSize = 20;
-    let snake = [{ x: 200, y: 200 }];
-    let food = { x: Math.floor(Math.random() * (canvas.width / boxSize)) * boxSize, y: Math.floor(Math.random() * (canvas.height / boxSize)) * boxSize };
-    let direction = 'RIGHT'; // Початковий напрямок
+    let snake = [{ x: 100, y: 100 }];
+    let food = {
+        x: Math.floor(Math.random() * (canvas.width / boxSize)) * boxSize,
+        y: Math.floor(Math.random() * (canvas.height / boxSize)) * boxSize
+    };
+    let direction = 'RIGHT';
     let nextDirection = 'RIGHT';
     let score = 0;
+    let pillsCollected = 0;
     let gameStarted = false;
 
-    // Малюємо границі гри
+    // Draw the game border
     function drawBorder() {
         ctx.strokeStyle = 'red';
         ctx.lineWidth = 4;
         ctx.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
     }
 
-    // Малюємо змійку
+    // Draw the snake
     function drawSnake() {
         ctx.fillStyle = 'green';
         snake.forEach(segment => {
@@ -240,67 +275,79 @@ function startSnakeGame() {
         });
     }
 
-    // Малюємо їжу (пігулку)
+    // Draw the food (pill)
     function drawFood() {
         ctx.font = '20px Arial';
         ctx.fillText('💊', food.x + 2, food.y + 18);
     }
 
-    // Рух змійки
+    // Move the snake
     function moveSnake() {
         const head = { ...snake[0] };
 
-        // Змінюємо напрямок
+        // Update direction
         if (nextDirection === 'UP' && direction !== 'DOWN') direction = 'UP';
         if (nextDirection === 'DOWN' && direction !== 'UP') direction = 'DOWN';
         if (nextDirection === 'LEFT' && direction !== 'RIGHT') direction = 'LEFT';
         if (nextDirection === 'RIGHT' && direction !== 'LEFT') direction = 'RIGHT';
 
-        // Оновлюємо позицію голови
+        // Update head position
         if (direction === 'UP') head.y -= boxSize;
         if (direction === 'DOWN') head.y += boxSize;
         if (direction === 'LEFT') head.x -= boxSize;
         if (direction === 'RIGHT') head.x += boxSize;
 
-        // Перевірка на зіткнення зі стінами або собою
+        // Check for collisions with walls or itself
         if (
-            head.x < 0 ||
-            head.y < 0 ||
-            head.x >= canvas.width ||
-            head.y >= canvas.height ||
+            head.x < 0 || head.y < 0 ||
+            head.x >= canvas.width || head.y >= canvas.height ||
             snake.some(segment => segment.x === head.x && segment.y === head.y)
         ) {
             alert(`Game Over! Your score: ${score}`);
+            pillsCount += pillsCollected; // Add collected pills to total count
+            updatePillsButton();
             restartGame();
             return;
         }
 
-        // Перевірка, чи з'їла змійка їжу
+        // Check if the snake eats the food
         if (head.x === food.x && head.y === food.y) {
             score++;
+            pillsCollected++;
+            pillsCount++;
+            updatePillsButton();
             document.getElementById('snakeScore').textContent = `Score: ${score}`;
-            food = { x: Math.floor(Math.random() * (canvas.width / boxSize)) * boxSize, y: Math.floor(Math.random() * (canvas.height / boxSize)) * boxSize };
+            document.getElementById('snakePillsCollected').textContent = `Pills: ${pillsCollected}`;
+            food = {
+                x: Math.floor(Math.random() * (canvas.width / boxSize)) * boxSize,
+                y: Math.floor(Math.random() * (canvas.height / boxSize)) * boxSize
+            };
         } else {
-            snake.pop(); // Видаляємо хвіст, якщо їжа не з'їдена
+            snake.pop(); // Remove tail if no food eaten
         }
 
-        snake.unshift(head); // Додаємо нову голову
+        snake.unshift(head); // Add new head
     }
 
-    // Перезапуск гри
+    // Restart the game
     function restartGame() {
-        snake = [{ x: 200, y: 200 }];
+        snake = [{ x: 100, y: 100 }];
         direction = 'RIGHT';
         nextDirection = 'RIGHT';
         score = 0;
+        pillsCollected = 0;
         gameStarted = false;
         document.getElementById('snakeScore').textContent = `Score: ${score}`;
-        food = { x: Math.floor(Math.random() * (canvas.width / boxSize)) * boxSize, y: Math.floor(Math.random() * (canvas.height / boxSize)) * boxSize };
+        document.getElementById('snakePillsCollected').textContent = `Pills: ${pillsCollected}`;
+        food = {
+            x: Math.floor(Math.random() * (canvas.width / boxSize)) * boxSize,
+            y: Math.floor(Math.random() * (canvas.height / boxSize)) * boxSize
+        };
     }
 
-    // Основний цикл гри
+    // Main game loop
     function gameLoop() {
-        if (!gameStarted) return; // Не запускаємо гру, поки вона не почалася
+        if (!gameStarted) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawBorder();
         drawSnake();
@@ -308,20 +355,20 @@ function startSnakeGame() {
         moveSnake();
     }
 
-    // Слухаємо натискання клавіш (W, A, S, D)
+    // Listen for key presses (W, A, S, D)
     document.addEventListener('keydown', (event) => {
-        if (!gameStarted) gameStarted = true; // Починаємо гру після першого натискання
+        if (!gameStarted) gameStarted = true;
         if (event.key === 'w') nextDirection = 'UP';
         if (event.key === 's') nextDirection = 'DOWN';
         if (event.key === 'a') nextDirection = 'LEFT';
         if (event.key === 'd') nextDirection = 'RIGHT';
     });
 
-    // Кнопка перезапуску гри
+    // Restart button event listener
     document.getElementById('restartSnakeGame').addEventListener('click', restartGame);
 
-    // Запускаємо основний цикл гри
-    setInterval(gameLoop, 100); // Оновлюємо гру кожні 100 мс
+    // Start the game loop
+    setInterval(gameLoop, 100);
 }
 
 // Додаємо кнопку "Play Snake" у блок p-vitamins
@@ -339,3 +386,18 @@ function addSnakeGameButton() {
 
 // Ініціалізуємо кнопку при завантаженні сторінки
 addSnakeGameButton();
+
+document.getElementById('openModalButton').addEventListener('click', function () {
+    document.getElementById('schemeModal').style.display = 'block';
+});
+
+document.getElementById('closeModal').addEventListener('click', function () {
+    document.getElementById('schemeModal').style.display = 'none';
+});
+
+window.addEventListener('click', function (event) {
+    const modal = document.getElementById('schemeModal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
