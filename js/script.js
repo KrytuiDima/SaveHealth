@@ -1,4 +1,4 @@
-let pillsCount = 5;
+let pillscount = 5;
 
 const healthPhrases = [
     "Пийте більше води! 💧",
@@ -23,27 +23,27 @@ const healthPhrases = [
     "Дякуйте за кожен день! 🙏"
 ];
 
-// Функція для оновлення кнопки пігулок
+// Update the pills button to display the count as xN
 function updatePillsButton() {
-    let pillsText = '';
-    for (let i = 0; i < pillsCount; i++) {
-        pillsText += '💊';
-    }
-    for (let i = pillsCount; i < 5; i++) {
-        pillsText += '❌';
-    }
     const pillsButton = document.getElementById('healthPillsButton');
-    pillsButton.textContent = pillsText;
+    const buyPillsButton = document.getElementById('buyPillsButton');
+    pillsButton.textContent = `Ви маєте ${pillscount}💊`;
 
-    // Dynamically adjust the width of the pills button
-    pillsButton.classList.add('dynamic');
+    // Enable or disable the "Buy Pills" button based on pill count
+    if (pillscount < 5) {
+        buyPillsButton.disabled = false;
+        buyPillsButton.classList.remove('disabled');
+    } else {
+        buyPillsButton.disabled = true;
+        buyPillsButton.classList.add('disabled');
+    }
 }
 
 document.getElementById("healthButton").addEventListener("click", function() {
-    if (pillsCount > 0) {
+    if (pillscount > 0) {
         const randomIndex = Math.floor(Math.random() * healthPhrases.length);
         document.getElementById("healthMessage").textContent = healthPhrases[randomIndex];
-        pillsCount--;
+        pillscount--;
         updatePillsButton();
     } else {
         document.getElementById("healthMessage").textContent = "Пігулки закінчилися! Купіть нові.";
@@ -51,9 +51,11 @@ document.getElementById("healthButton").addEventListener("click", function() {
 });
 
 document.getElementById("buyPillsButton").addEventListener("click", function() {
-    pillsCount = 5;
-    updatePillsButton();
-    document.getElementById("healthMessage").textContent = "Пігулки відновлені. Готові для використання!";
+    if (pillscount < 5) {
+        pillscount = 5;
+        updatePillsButton();
+        document.getElementById("healthMessage").textContent = "Пігулки відновлені. Готові для використання!";
+    }
 });
 
 updatePillsButton();
@@ -202,13 +204,13 @@ function renderVitamins() {
 // Купівля
 function buyVitamin(vitaminId) {
   const vitamin = arrayOfVitaminObjects.find(item => item.id === vitaminId);
-  if (vitamin && pillsCount >= vitamin.price) {
-    pillsCount -= vitamin.price;
+  if (vitamin && pillscount >= vitamin.price) {
+    pillscount -= vitamin.price;
     vitamin.purchased = true;
     updatePillsButton();
     renderVitamin(vitamin);
 
-    // Add animation class for opening effect
+    // Add animation class for spinning effect
     const vitaminElement = document.querySelector(`.vitamin[data-id="${vitaminId}"]`);
     if (vitaminElement) {
         vitaminElement.classList.add('open');
@@ -304,7 +306,7 @@ function startSnakeGame() {
             snake.some(segment => segment.x === head.x && segment.y === head.y)
         ) {
             alert(`Game Over! Your score: ${score}`);
-            pillsCount += pillsCollected; // Add collected pills to total count
+            pillscount += pillsCollected; // Add collected pills to total count
             updatePillsButton();
             restartGame();
             return;
@@ -314,7 +316,7 @@ function startSnakeGame() {
         if (head.x === food.x && head.y === food.y) {
             score++;
             pillsCollected++;
-            pillsCount++;
+            pillscount++;
             updatePillsButton();
             document.getElementById('snakeScore').textContent = `Score: ${score}`;
             document.getElementById('snakePillsCollected').textContent = `Pills: ${pillsCollected}`;

@@ -215,6 +215,13 @@ button:active,
   box-shadow: 0 6px 10px rgba(55, 177, 130, 0.5); /* Синя тінь при натисканні */
 }
 
+#buyPillsButton.disabled {
+  background-color: #cccccc; /* Gray background for disabled state */
+  cursor: not-allowed; /* Change cursor to indicate disabled state */
+  box-shadow: none; /* Remove shadow for disabled state */
+  transform: none; /* Remove scaling effect */
+}
+
 #healthMessage {
   text-align: center;
   font-size: 18px;
@@ -305,6 +312,29 @@ button:active,
   transform: scale(1.05); /* Slight zoom when opened */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow when opened */
   animation: vitaminOpen 0.5s ease-out; /* Opening animation */
+}
+
+.vitamin.open {
+  transform: rotateY(360deg) scale(1.00); /* Add spinning effect */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow when opened */
+  animation: vitaminSpin 0.6s ease-out; /* Spinning animation */
+}
+
+.vitamin.open:hover {
+  transform: rotateY(360deg) scale(1.05); /* Slightly increase scale on hover */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Add stronger shadow on hover */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effect */
+}
+
+@keyframes vitaminSpin {
+  0% {
+    transform: rotateY(0deg) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateY(360deg) scale(1.05);
+    opacity: 1;
+  }
 }
 
 @keyframes vitaminOpen {
@@ -552,10 +582,13 @@ button:active,
 }
 
 #healthPillsButton {
-  display: block;
-  margin: 20px auto;
+  position: fixed; /* Make the button fixed */
+  top: 20px; /* Position it at the top */
+  right: 20px; /* Position it at the right */
+  z-index: 1000; /* Ensure it stays above other elements */
   padding: 10px 20px;
   font-size: 18px;
+  font-weight: bold; /* Make the text bold for better visibility */
   background-color: #388e3c;
   color: white;
   border: none;
@@ -570,6 +603,30 @@ button:active,
 /* Dynamically adjust the width of the pills button */
 #healthPillsButton.dynamic {
   width: auto; /* Adjust width based on content */
-  min-width: 100px; /* Set a minimum width */
-  max-width: 300px; /* Set a maximum width */
+  min-width: 50px; /* Set a minimum width */
+  max-width: 100px; /* Set a maximum width */
+}
+
+#buyPillsButton {
+  position: fixed;
+  top: 70px; /* Positioned below the pills balance */
+  right: 20px;
+  z-index: 1000;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #0288d1;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+#buyPillsButton:hover {
+  background-color: #0277bd;
+}
+
+#buyPillsButton:active {
+  background-color: #01579b;
 }
